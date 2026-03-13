@@ -1,22 +1,21 @@
-import { mdiCheck, mdiClose } from "@mdi/js";
-import { css, html, LitElement, nothing, PropertyValues, TemplateResult } from "lit";
-import { customElement, property, query, state } from "lit/decorators.js";
-import { UnsubscribeFunc } from "home-assistant-js-websocket";
-import { AlarmoEntity, AlarmoEvent } from "../types";
-import { ActionToState, AlarmoEvents, AlarmStates, ArmActions, EVENT, FORMAT_NUMBER } from "../const";
-import { SubscribeMixin } from "../subscribe-mixin";
-import { HomeAssistant } from "../lib/types";
+import { mdiCheck, mdiClose } from '@mdi/js';
+import { css, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { UnsubscribeFunc } from 'home-assistant-js-websocket';
+import { AlarmoEntity, AlarmoEvent } from '../types';
+import { ActionToState, AlarmoEvents, AlarmStates, ArmActions, EVENT, FORMAT_NUMBER } from '../const';
+import { SubscribeMixin } from '../subscribe-mixin';
+import { HomeAssistant } from '../lib/types';
 
 type ValidHassDomEvent = keyof HASSDomEvents;
 
-export interface HassDialog<T = HASSDomEvents[ValidHassDomEvent]>
-  extends HTMLElement {
+export interface HassDialog<T = HASSDomEvents[ValidHassDomEvent]> extends HTMLElement {
   showDialog(params: T);
   closeDialog?: () => boolean;
 }
 
 export interface CodeDialogParams {
-  code_format: "text" | "number";
+  code_format: 'text' | 'number';
   area_id?: string | number | null;
   entity_id: string;
   action: ArmActions;
@@ -25,25 +24,10 @@ export interface CodeDialogParams {
   cancel?: () => void;
 }
 
-const BUTTONS = [
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "0",
-  "clear",
-  "submit",
-];
+const BUTTONS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'clear', 'submit'];
 
-@customElement("alarmo-code-dialog")
-export class AlarmoCodeDialog
-  extends SubscribeMixin(LitElement)
-  implements HassDialog<CodeDialogParams> {
+@customElement('alarmo-code-dialog')
+export class AlarmoCodeDialog extends SubscribeMixin(LitElement) implements HassDialog<CodeDialogParams> {
   @property({ attribute: false }) public hass?: HomeAssistant;
 
   @state() private _params?: CodeDialogParams;
@@ -57,7 +41,9 @@ export class AlarmoCodeDialog
   _codeClearTimer = 0;
 
   public hassSubscribe(): Promise<UnsubscribeFunc>[] {
-    return [this.hass!.connection.subscribeMessage(ev => this._fetchData((ev as unknown) as AlarmoEvent), { type: EVENT })];
+    return [
+      this.hass!.connection.subscribeMessage((ev) => this._fetchData(ev as unknown as AlarmoEvent), { type: EVENT }),
+    ];
   }
 
   private async _fetchData(ev: AlarmoEvent): Promise<void> {
@@ -107,11 +93,10 @@ export class AlarmoCodeDialog
   //   //console.log(`state changed: ${oldState.state} -> ${newState.state}`);
   // }
 
-
   protected firstUpdated(changedProps) {
     super.firstUpdated(changedProps);
-    this.addEventListener("keypress", (ev) => {
-      if (ev.key === "Enter" && this._input.length) {
+    this.addEventListener('keypress', (ev) => {
+      if (ev.key === 'Enter' && this._input.length) {
         this._submit();
       }
     });
@@ -119,10 +104,8 @@ export class AlarmoCodeDialog
 
   public async showDialog(dialogParams: CodeDialogParams): Promise<void> {
     this._params = dialogParams;
-    this._input = "";
-    this._narrow = matchMedia(
-      "all and (max-width: 450px), all and (max-height: 500px)"
-    ).matches;
+    this._input = '';
+    this._narrow = matchMedia('all and (max-width: 450px), all and (max-height: 500px)').matches;
     await this.updateComplete;
   }
 
@@ -173,20 +156,20 @@ export class AlarmoCodeDialog
   }
 
   private _submit(): void {
-    const code = this._input ?? "";
+    const code = this._input ?? '';
     this._clearCodeError();
 
     if (this._params!.action == ArmActions.Disarm) {
       this.hass!.callService('alarmo', 'disarm', {
         entity_id: this._params!.entity_id,
-        code: code
+        code: code,
       });
     } else {
       this.hass!.callService('alarmo', 'arm', {
         ...this._params!.armOptions,
         entity_id: this._params!.entity_id,
         mode: ActionToState[this._params!.action],
-        code: code
+        code: code,
       });
     }
   }
@@ -210,7 +193,7 @@ export class AlarmoCodeDialog
   }
 
   private _clear(): void {
-    this._input = "";
+    this._input = '';
     this._showClearButton = false;
   }
 
@@ -219,14 +202,14 @@ export class AlarmoCodeDialog
       return nothing;
     }
 
-    const isText = this._params.code_format === "text";
+    const isText = this._params.code_format === 'text';
 
     if (isText) {
       return html`
         <ha-dialog
           open
           @closed=${this._cancel}
-          header-title="${this.hass.localize("ui.dialogs.enter_code.title")}"
+          header-title="${this.hass.localize('ui.dialogs.enter_code.title')}"
           width="small"
         >
           <ha-textfield
@@ -234,22 +217,22 @@ export class AlarmoCodeDialog
             ?dialogInitialFocus=${!this._narrow}
             .value=${this._input}
             id="code"
-            .label=${this.hass.localize("ui.dialogs.enter_code.input_label")}
+            .label=${this.hass.localize('ui.dialogs.enter_code.input_label')}
             type="password"
             inputMode="text"
             @input=${(ev: Event) => {
-          this._clearCodeError();
-          this._input = (ev.target as HTMLInputElement).value;
-          this._setCodeClearTimer();
-        }}
+              this._clearCodeError();
+              this._input = (ev.target as HTMLInputElement).value;
+              this._setCodeClearTimer();
+            }}
             @focus=${this._clearCodeError}
           ></ha-textfield>
           <ha-dialog-footer>
             <ha-button slot="secondaryAction" data-dialog="close" appearance="plain">
-              ${this.hass.localize("ui.common.cancel")}
+              ${this.hass.localize('ui.common.cancel')}
             </ha-button>
             <ha-button @click=${this._submit} slot="primaryAction">
-              ${this.hass.localize("ui.common.submit")}
+              ${this.hass.localize('ui.common.submit')}
             </ha-button>
           </ha-dialog-footer>
         </ha-dialog>
@@ -259,7 +242,7 @@ export class AlarmoCodeDialog
     return html`
       <ha-dialog
         open
-        header-title="${this.hass.localize("ui.dialogs.enter_code.title")}"
+        header-title="${this.hass.localize('ui.dialogs.enter_code.title')}"
         @closed=${this._cancel}
         width="small"
       >
@@ -269,51 +252,47 @@ export class AlarmoCodeDialog
             ?dialogInitialFocus=${!this._narrow}
             .value=${this._input}
             id="code"
-            .label=${this.hass.localize("ui.dialogs.enter_code.input_label")}
+            .label=${this.hass.localize('ui.dialogs.enter_code.input_label')}
             type="password"
             inputMode="numeric"
             @input=${(ev: Event) => {
-        this._clearCodeError();
-        this._input = (ev.target as HTMLInputElement).value;
-        this._setCodeClearTimer();
-      }}
+              this._clearCodeError();
+              this._input = (ev.target as HTMLInputElement).value;
+              this._setCodeClearTimer();
+            }}
             @focus=${this._clearCodeError}
           ></ha-textfield>
           <div class="keypad">
             ${BUTTONS.map((value) =>
-        value === ""
-          ? html`<span></span>`
-          : value === "clear"
-            ? html`
+              value === ''
+                ? html`<span></span>`
+                : value === 'clear'
+                  ? html`
                       <ha-control-button
                         @click=${this._clear}
                         class="clear"
                         .disabled=${!this._showClearButton}
-                        .label=${this.hass!.localize("ui.common.clear")}
+                        .label=${this.hass!.localize('ui.common.clear')}
                       >
                         <ha-svg-icon path=${mdiClose}></ha-svg-icon>
                       </ha-control-button>
                     `
-            : value === "submit"
-              ? html`
+                  : value === 'submit'
+                    ? html`
                         <ha-control-button
                           @click=${this._submit}
                           class="submit"
-                          .label=${this.hass!.localize("ui.common.submit")}
+                          .label=${this.hass!.localize('ui.common.submit')}
                         >
                           <ha-svg-icon path=${mdiCheck}></ha-svg-icon>
                         </ha-control-button>
                       `
-              : html`
-                        <ha-control-button
-                          .value=${value}
-                          @click=${this._numberClick}
-                          .label=${value}
-                        >
+                    : html`
+                        <ha-control-button .value=${value} @click=${this._numberClick} .label=${value}>
                           ${value}
                         </ha-control-button>
                       `
-      )}
+            )}
           </div>
         </div>
       </ha-dialog>
@@ -407,6 +386,6 @@ export class AlarmoCodeDialog
 
 declare global {
   interface HTMLElementTagNameMap {
-    "alarmo-code-dialog": AlarmoCodeDialog;
+    'alarmo-code-dialog': AlarmoCodeDialog;
   }
 }

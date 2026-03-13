@@ -25,7 +25,7 @@ export const validateConfig = (config?: Partial<CardConfig> & { button_scale?: a
 
 export const calcStateConfig = (state: AlarmStates, config: Partial<CardConfig>) => {
   let result: Partial<StateConfig> = {
-    hide: false
+    hide: false,
   };
 
   if ((config.states || {}).hasOwnProperty(state)) result = { ...result, ...config.states![state] };
