@@ -13,6 +13,7 @@
     "show_bypassed_sensors": "Mostra avviso quando l'allarme è armato con sensori esclusi.",
     "use_code_dialog": "Visualizza la tastiera per l'immissione del codice come finestra di dialogo popup.",
     "hide_keypad": "Nascondi i pulsanti della tastiera per l'inserimento del codice.",
+    "show_code_inputfield": "Mostra il campo di inserimento del codice.",
     "available_actions": "Azioni disponibili:",
     "action_dialog": {
       "title": "Personalizzare la visualizzazione dell'azione '{action}'",

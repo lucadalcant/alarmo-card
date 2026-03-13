@@ -83,7 +83,8 @@ export const defaultCardConfig: CardConfig = {
   show_ready_indicator: true,
   show_bypassed_sensors: true,
   use_code_dialog: false,
-  hide_keypad: false
+  hide_keypad: false,
+  show_code_inputfield: true
 };
 
 export const minButtonScale = 1;

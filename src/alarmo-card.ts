@@ -307,6 +307,8 @@ export class AlarmoCard extends SubscribeMixin(LitElement) {
 
         ${(!codeRequired(stateObj) && !this._config.keep_keypad_visible) || this._config.use_code_dialog
         ? html``
+        : !this._config.show_code_inputfield
+        ? html``
         : html`
               <ha-textfield
                 .value=${this._input}

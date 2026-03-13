@@ -14,6 +14,7 @@ export type CardConfig = {
   show_bypassed_sensors: boolean;
   use_code_dialog: boolean;
   hide_keypad: boolean;
+  show_code_inputfield: boolean;
 };
 
 export type HideOptions = 'always' | 'never' | 'disarmed' | 'armed';
