@@ -518,6 +518,7 @@ export class AlarmoCard extends SubscribeMixin(LitElement) {
           code: this._input,
         });
       }
+      this._clearCode();
       this.warning = '';
       this.armOptions = { ...defaultArmOptions };
     }
