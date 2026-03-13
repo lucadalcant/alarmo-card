@@ -661,9 +661,9 @@ export class AlarmoCard extends SubscribeMixin(LitElement) {
         grid-gap: var(--ha-space-4, 16px);
       }
       #keypad alarmo-button {
-        width: calc(var(--content-scale, 1) * 72px);
-        height: calc(var(--content-scale, 1) * 72px);
-        --alarmo-button-font-size: 30px;
+        width: calc(var(--content-scale, 1) * 56px);
+        height: calc(var(--content-scale, 1) * 56px);
+        --alarmo-button-font-size: 24px;
         --alarmo-button-background-color: var(--primary-text-color);
         --alarmo-button-background-opacity: 0.05;
         --alarmo-button-border-radius: 50%;
