@@ -14,6 +14,7 @@
     "use_code_dialog": "Zobrazte klávesnici pro zadání kódu jako vyskakovací dialog.",
     "hide_keypad": "Skrýt tlačítka klávesnice pro zadávání kódu.",
     "show_code_inputfield": "Zobrazit vstupní pole kódu",
+    "show_header": "Zobrazit záhlaví",
     "available_actions": "Dostupné akce:",
     "action_dialog": {
       "title": "Upravit zobrazení akce '{action}'",

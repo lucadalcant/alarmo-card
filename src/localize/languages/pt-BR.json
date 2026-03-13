@@ -14,6 +14,7 @@
     "use_code_dialog": "Exiba o teclado para inserir o código como uma caixa de diálogo pop-up.",
     "hide_keypad": "Oculte os botões do teclado para inserir o código.",
     "show_code_inputfield": "Mostrar campo de entrada do código",
+    "show_header": "Mostrar cabeçalho",
     "available_actions": "Ações disponíveis:",
     "action_dialog": {
       "title": "Personalize a exibição da ação '{action}'",

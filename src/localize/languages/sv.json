@@ -14,6 +14,7 @@
     "use_code_dialog": "Visa knappsatsen för att ange koden som en popup-dialogruta.",
     "hide_keypad": "Dölj knapparna på tangentbordet för att ange koden.",
     "show_code_inputfield": "Visa kodinmatningsfält",
+    "show_header": "Showrubrik",
     "available_actions": "Tillgängliga åtgärder:",
     "action_dialog": {
       "title": "Anpassa visningen av åtgärden '{action}'",

@@ -15,6 +15,7 @@ export type CardConfig = {
   use_code_dialog: boolean;
   hide_keypad: boolean;
   show_code_inputfield: boolean;
+  show_header: boolean;
 };
 
 export type HideOptions = 'always' | 'never' | 'disarmed' | 'armed';

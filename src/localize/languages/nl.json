@@ -14,6 +14,7 @@
     "use_code_dialog": "Geef het toetsenbord voor het invoeren van de code weer als een pop-upvenster.",
     "hide_keypad": "Verberg het toetsenbord voor het invoeren van de code.",
     "show_code_inputfield": "Toon code invoerveld",
+    "show_header": "Koptekst weergeven",
     "available_actions": "Beschikbare acties:",
     "action_dialog": {
       "title": "Weergave van actie '{action}' aanpassen",

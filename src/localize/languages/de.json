@@ -14,6 +14,7 @@
     "use_code_dialog": "Zeigen Sie die Tastatur zur Codeeingabe als Popup-Dialog an.",
     "hide_keypad": "Blenden Sie die Tasten der Tastatur zur Codeeingabe aus.",
     "show_code_inputfield": "Pin-Eingabefeld anzeigen",
+    "show_header": "Kopfzeile anzeigen",
     "available_actions": "Verfügbare Aktionen:",
     "action_dialog": {
       "title": "Anzeige der Aktion '{action}' anpassen",

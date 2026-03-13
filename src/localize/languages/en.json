@@ -14,6 +14,7 @@
     "use_code_dialog": "Display the keypad for entering the code as a popup dialog.",
     "hide_keypad": "Hide the keypad buttons for entering the code.",
     "show_code_inputfield": "Show code input field",
+    "show_header": "Show header",
     "available_actions": "Available actions:",
     "action_dialog": {
       "title": "Customize display of action '{action}'",
