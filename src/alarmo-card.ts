@@ -163,6 +163,7 @@ export class AlarmoCard extends SubscribeMixin(LitElement) {
       case AlarmoEvents.InvalidCodeProvided:
       case AlarmoEvents.NoCodeProvided:
         this._showCodeError();
+        this._shakeKeypad();
         this.subscribedEntities = [];
         break;
       case AlarmoEvents.FailedToArm:
@@ -524,6 +525,20 @@ export class AlarmoCard extends SubscribeMixin(LitElement) {
     }
   }
 
+  private _shakeKeypad() {
+    const keypad = this.shadowRoot?.querySelector('#keypad');
+    if (!keypad) return;
+  
+    keypad.classList.remove('shake');
+  
+    // force reflow per riavviare animazione
+    keypad.getBoundingClientRect();
+  
+    keypad.classList.add('shake');
+  
+    navigator.vibrate?.(120);
+  }
+
   private _showCodeError() {
     const inputField = this.shadowRoot?.querySelector('#code_input');
     if (inputField) {
@@ -792,6 +807,16 @@ export class AlarmoCard extends SubscribeMixin(LitElement) {
         ha-dropdown {
           display: none;
         }
+      }
+      @keyframes keypad-shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        50% { transform: translateX(5px); }
+        75% { transform: translateX(-5px); }
+        100% { transform: translateX(0); }
+      }
+      #keypad.shake {
+        animation: keypad-shake 0.4s ease;
       }
     `;
   }
