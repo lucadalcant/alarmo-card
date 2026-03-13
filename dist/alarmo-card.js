@@ -973,7 +973,7 @@ var Ze=function(e){return function(t,i){void 0!==i?i.addInitializer((function(){
                 id="code_input"
                 .inputMode=${(null===(e=this._alarmoConfig)||void 0===e?void 0:e.code_format)===Ye?"numeric":"text"}
               ></ha-textfield>
-            `:Ae``}
+            `:Ae`<div class="code-spacer"></div>`}
         ${!ui(i)&&!this._config.keep_keypad_visible||(null===(t=this._alarmoConfig)||void 0===t?void 0:t.code_format)!==Ye||this._config.use_code_dialog||this._config.hide_keypad?Ae``:Ae`
           <div id="keypad" class="keypad" style="max-width: ${300*this._config.button_scale_keypad}px">
             ${zi.map((e=>""===e?Ae`
@@ -1101,6 +1101,9 @@ var Ze=function(e){return function(t,i){void 0!==i?i.addInitializer((function(){
         margin: 0px auto;
         box-sizing: border-box;
       }
+      .code-spacer {
+        height: 10px;
+      }
       .actions {
         margin: 0;
         display: flex;
@@ -1131,9 +1134,9 @@ var Ze=function(e){return function(t,i){void 0!==i?i.addInitializer((function(){
         grid-gap: var(--ha-space-4, 16px);
       }
       #keypad alarmo-button {
-        width: calc(var(--content-scale, 1) * 56px);
-        height: calc(var(--content-scale, 1) * 56px);
-        --alarmo-button-font-size: 24px;
+        width: calc(var(--content-scale, 1) * 72px);
+        height: calc(var(--content-scale, 1) * 72px);
+        --alarmo-button-font-size: 30px;
         --alarmo-button-background-color: var(--primary-text-color);
         --alarmo-button-background-opacity: 0.05;
         --alarmo-button-border-radius: 50%;
