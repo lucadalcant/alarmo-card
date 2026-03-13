@@ -529,14 +529,19 @@ export class AlarmoCard extends SubscribeMixin(LitElement) {
     const keypad = this.shadowRoot?.querySelector('#keypad');
     if (!keypad) return;
   
+    // animation reset
     keypad.classList.remove('shake');
-  
-    // force reflow per riavviare animazione
     keypad.getBoundingClientRect();
-  
     keypad.classList.add('shake');
   
-    navigator.vibrate?.(120);
+    // keypad red flash
+    keypad.classList.add('flash');
+    setTimeout(() => {
+      keypad.classList.remove('flash');
+    }, 150);
+  
+    // mobile vibration
+    navigator.vibrate?.([80, 40, 80]);
   }
 
   private _showCodeError() {
@@ -809,14 +814,23 @@ export class AlarmoCard extends SubscribeMixin(LitElement) {
         }
       }
       @keyframes keypad-shake {
-        0% { transform: translateX(0); }
-        25% { transform: translateX(-5px); }
-        50% { transform: translateX(5px); }
-        75% { transform: translateX(-5px); }
+        0%   { transform: translateX(0); }
+        15%  { transform: translateX(-14px); }
+        30%  { transform: translateX(12px); }
+        45%  { transform: translateX(-10px); }
+        60%  { transform: translateX(8px); }
+        75%  { transform: translateX(-6px); }
+        90%  { transform: translateX(4px); }
         100% { transform: translateX(0); }
       }
       #keypad.shake {
-        animation: keypad-shake 0.4s ease;
+        animation: keypad-shake 0.45s cubic-bezier(.36,.07,.19,.97);
+      }
+      #keypad.flash alarmo-button {
+        --alarmo-button-background-color: var(--error-color);
+        --alarmo-button-background-opacity: 0.25;
+        --alarmo-button-color: var(--error-color);
+        transition: all 0.15s ease;
       }
     `;
   }
